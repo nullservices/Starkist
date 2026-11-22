@@ -1,0 +1,33 @@
+# Starkist settings. Delays are seconds; a [min, max] pair is re-rolled uniformly every time.
+
+[capture]
+# "process": hear only the target application's own audio (Windows 10 2004+). Nothing else
+#            playing on the PC can trigger or drown the cue. Needs window_title.
+# "device":  hear a loopback device (everything on that output). See `starkist devices`.
+mode = "process"
+# A substring of the target window's title. Used to find the process for "process" capture and
+# for the focus check before each press. Leave empty only with mode = "device".
+window_title = "World of Warcraft"
+# Loopback device id or name substring for mode = "device". Empty = default output's monitor.
+device = ""
+
+[match]
+# Folder of reference .wav cues (relative to the project root). Each file becomes one cue.
+cues = "assets/cues"
+# Normalized correlation needed to count as a cue (0..1). Run `starkist listen` to see scores.
+threshold = 0.62
+# Ignore further cues for this long after one fires.
+refractory_s = 3
+
+[action]
+key = "space"
+# Wait this long after the cue before the first press.
+first_delay_s = [0.4, 2.2]
+# Wait this long after the first press before the second press.
+second_delay_s = [0.8, 3]
+# How long each press is held down.
+hold_s = [0.04, 0.2]
+# Skip a press when the target window is not the foreground window.
+require_focus = true
+# If no cue is heard for this long after the last press, press the key again. 0 disables.
+idle_timeout_s = 35
